@@ -1,7 +1,8 @@
 function Sidebar() {
   return (
     <div>
-      testiing
+          testiing
+          testing
     </div>
   )
 }
