@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import * as EmailValidator from "email-validator";
 import { useSession, signOut } from "next-auth/react";
+
 // icons
 import { FaUserCircle } from "react-icons/fa";
 import { FiMoreHorizontal } from "react-icons/fi";
@@ -14,7 +15,10 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import Chat from "./Chat";
+import { useRouter } from "next/router";
 function Sidebar() {
+  const router = useRouter();
+  // chat satate
   const [myChats, setMyChats] = useState();
   // session details
   const { data: session } = useSession();
@@ -62,7 +66,12 @@ function Sidebar() {
   return (
     <div style={mainDiv}>
       <div style={headerDiv}>
-        <FaUserCircle style={userIcon} onClick={signOut} />
+        <img
+          src={session?.user.image}
+          alt=""
+          style={userImg}
+          onClick={signOut}
+        />
         <div style={topIconDiv}>
           <BsFillChatLeftTextFill style={userIcon} />
           <FiMoreHorizontal style={userIcon} />
@@ -82,10 +91,7 @@ function Sidebar() {
       {myChats ? (
         <>
           {myChats.map((chat) => {
-            return (
-              <Chat key={chat.id} id={chat.id} users={chat.users} />
-               
-            );
+            return <Chat key={chat.id} id={chat.id} users={chat.users} />;
           })}
         </>
       ) : (
@@ -115,6 +121,14 @@ const headerDiv = {
 
 const topIconDiv = {};
 
+const userImg = {
+  cursor: "pointer",
+  color: "gray",
+  borderRadius: "50%",
+  width: "50px",
+  fontSize: "40px",
+  objectFit: "center",
+};
 const userIcon = {
   cursor: "pointer",
   color: "gray",

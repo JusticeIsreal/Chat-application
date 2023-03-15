@@ -23,7 +23,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const { data: session } = useSession();
-
+ 
   const [isSessionSaved, setIsSessionSaved] = useState(false);
   const saveSession = async () => {
     if (session) {
@@ -74,6 +74,8 @@ export default function Home() {
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <Sidebar />
+          <p onClick={signIn}>sign In</p>
+          <p onClick={signOut}>sign Out</p>
         </>
       )}
     </div>
